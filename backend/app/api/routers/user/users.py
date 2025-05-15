@@ -1,16 +1,12 @@
 from typing import List, Any
 import uuid
 
-
 # required for avatar
 from fastapi import Depends, UploadFile, File, Form
 import shutil
 import os
 from uuid import uuid4
 from app.core.config import settings
-
-
-
 
 from fastapi import APIRouter, Path, Query, HTTPException
 
@@ -25,7 +21,7 @@ from app.services.user import (
     update_existing_user,
     delete_existing_user
 )
-from app.api.deps import CurrestUser
+from app.api.deps import CurrentUser
 from app.core.database import SessionDep
 
 router = APIRouter(prefix="/users", tags=["User"])
@@ -48,8 +44,11 @@ async def read_users(
     return db_users
 
 
-@router.get("/me", response_model=UserPublic)
-async def read_me(current_user: CurrestUser):
+@router.get("/me/", response_model=UserPublic)
+def read_user_me(current_user: CurrentUser) -> Any:
+    """
+    Get current user.
+    """
     return current_user
 
 
@@ -147,7 +146,7 @@ async def upload_user_avatar(
 
 
 @router.put("/update/me", response_model=UserPublic)
-async def update_me(db: SessionDep, user_update: UserUpdate, current_user: CurrestUser) -> Any:
+async def update_me(db: SessionDep, user_update: UserUpdate, current_user: CurrentUser) -> Any:
     """
     Updating the current user by id
     """
@@ -175,7 +174,7 @@ async def update_user_by_id(db: SessionDep, user_id: uuid.UUID, user_update: Use
 
 
 @router.delete("/delete/me/", response_model=Message)
-async def delete_user_me(db: SessionDep, current_user: CurrestUser) -> Any:
+async def delete_user_me(db: SessionDep, current_user: CurrentUser) -> Any:
     """
     Deleting the current user by id
     """

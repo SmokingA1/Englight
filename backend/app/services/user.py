@@ -5,6 +5,7 @@ from app.models import User
 from app.core.security import verify_password
 from typing import List
 from uuid import UUID
+from app.core.security import hash_password
 
 async def get_user_by_id(db: AsyncSession, user_id: UUID) -> User | None:
     db_user = await db.get(User, user_id)
@@ -13,29 +14,33 @@ async def get_user_by_id(db: AsyncSession, user_id: UUID) -> User | None:
 
 async def get_user_by_email(db: AsyncSession, user_email: str) -> User | None:
     query = select(User).where(User.email == user_email)
-    db_user = await db.expire(query)
+    db_user = await db.execute(query)
 
-    return db_user
+    return db_user.scalars().first()
 
 
 async def get_user_by_phone(db: AsyncSession, user_phone: str) -> User | None:
     query = select(User).where(User.phone_number == user_phone)
     db_user = await db.execute(query)
 
-    return db_user
+    return db_user.scalars().first()
 
 
 async def get_users(db: AsyncSession, offset: int, limit: int = 20) -> List[User] | None:
     query = select(User).offset(offset=offset).limit(limit=limit)
     db_users = await db.execute(query)
 
-    return db_users
+    return db_users.scalars().all()
 
 
 async def create_new_user(db: AsyncSession, user_create: UserCreate) -> User | None:
-    new_user = User(
-        **user_create.model_dump()
-    )
+    new_user = User(username = user_create.username,
+                    hashed_password = hash_password(user_create.password),
+                    email = user_create.email,
+                    phone_number = user_create.phone_number,
+                    avatar_url = user_create.avatar_url,
+                    role = user_create.role
+                    )   
 
     db.add(new_user)
     await db.commit()

@@ -1,4 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from typing import ClassVar
+
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
@@ -7,13 +9,12 @@ class Settings(BaseSettings):
         extra="ignore",
     )
     
-    AVATAR_UPLOAD_DIR = "static/avatars"
-
+    AVATAR_UPLOAD_DIR: ClassVar[str] = 'static/avatars'  # Используем ClassVar
     PROJECT_NAME: str
 
     SECRET_KEY: str
     ALGORITHM: str = "HS256"
-    ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7 # 60min * 24hours * 7 == 7days
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7 # 60min * 24hours * 7 == 7days
 
     #POSTGRES DATA TO CONNECT
     POSTGRES_USER: str

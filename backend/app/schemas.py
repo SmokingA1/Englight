@@ -2,14 +2,21 @@ from pydantic import BaseModel, EmailStr, Field, field_validator
 from datetime import datetime, timedelta
 from uuid import UUID
 from typing import List
+from enum import Enum
+
+class RoleEnum(str, Enum):
+    user = "user"
+    admin = "admin"
+
 
 class UserBase(BaseModel):
     username: str = Field(..., min_length=1, max_length=30)
     avatar_url: str = Field("static/images/d-avatar.jpg", min_length=1)
     email: EmailStr = Field(..., min_length=1)
-    phone_number: str = Field(None, min_length=10, max_length=15)
-    created_at: datetime
-    updated_at: datetime
+    phone_number: str | None = Field(None, min_length=10, max_length=15)
+    role: str = Field(default=RoleEnum.user, max_length=5)
+    created_at: datetime | None = Field(default_factory=datetime.utcnow)
+    updated_at: datetime | None = Field(default_factory=datetime.utcnow)
 
     @field_validator("phone_number", mode="before")
     @classmethod
@@ -25,6 +32,8 @@ class UserBase(BaseModel):
             raise ValueError("Phone number cannot be empty if provided")
         return v
 
+    class Config:
+        from_attributes = True
 
 class UserCreate(UserBase):
     password: str = Field(..., min_length=8, max_length=64)
@@ -44,7 +53,9 @@ class UserUpdate(BaseModel):
 class UserPublic(UserBase):
     id: UUID
 
-    model_config = {'from_attributes': True}
+    # model_config = {'from_attributes': True}
+    class Config:
+        from_attributes = True  # Это обязательно для работы с SQLAlchemy моделями
 
 
 class DeckBase(BaseModel):
@@ -85,3 +96,8 @@ class Message(BaseModel):
 class Token(BaseModel):
     sub: str
     exp: timedelta
+
+
+class TokenPayload(BaseModel):
+    sub: str | None = None 
+    exp: float
