@@ -7,25 +7,23 @@ header {
     background: #2A7B9B;
     background: linear-gradient(180deg,rgb(181, 234, 255) 0%, rgb(205, 252, 225) 100%);
 
-    position: fixed;
+    position: relative;
     box-shadow: 0px 2px 4px rgba(137, 165, 241, 0.5);
 
 }
 
-
-
 .header-container {
-    width: 70%; 
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 90vw;
-
+    max-width: 90vw;    
 }
 
 nav {
     display: flex;
     align-items: center;
+    justify-self: center;
     gap: 15px;
     list-style: none;
     text-decoration: none;
@@ -33,6 +31,9 @@ nav {
     font-size: 17px;
 }
 
+.nav-0 {
+    margin-right: 20px;
+}
 nav a {
     text-decoration: none;
     transition: 0.1s;
@@ -47,8 +48,6 @@ nav a:hover {
     transform: translateY(-1px);
 }
 
-
-
 .nav-3 {
     display: flex;
     align-items: center;
@@ -56,7 +55,7 @@ nav a:hover {
     
 }
 
-.icon-user {
+.iconUser {
     width: 40px;
     border-radius: 50%;
     box-shadow: 0 0 5px rgba(51, 51, 51, 0.5);
@@ -65,8 +64,13 @@ nav a:hover {
 .icon-app {
     height: 40px;
     border-radius: 5px;
-    margin-right: 120px;
-    margin-right: 10%;
     box-shadow: 0 0 4px rgba(51, 51, 51, 0.4);
+}
+
+
+@media (max-width: 650px) {
+    .icon-app {
+        display: none;
+    }
 
 }

@@ -1,19 +1,21 @@
-import React, {useState, useCallback, useEffect} from "react"
+import React, {useState, useEffect, useCallback} from "react";
 import Header from "../components/Header";
-import api from "../api";
+import MyProfile from "../components/MyProfile";
 import { logger } from "../components/utils/logger";
+import api from "../api";
 
 interface UserPorps {
     username: string
     avatar_url: string
 }
 
-const Home: React.FC = () => {
+const MyProfilePage: React.FC = () => {
     const [isVerified, setIsVerified] = useState<boolean>(false);
-    const [userData, setUserData] = useState<UserPorps>({
-        username: '',
-        avatar_url: ''
+        const [userData, setUserData] = useState<UserPorps>({
+            username: '',
+            avatar_url: ''
     })
+
 
     const fetchUserData = useCallback(async () => {
         try {
@@ -38,17 +40,18 @@ const Home: React.FC = () => {
         fetchUserData();
     }, [])
 
-
     return(
-
-        <div className="home-page" style={{display: "flex", justifyContent: "center"}}>
-            <Header 
-                verified={isVerified}
-                avatar_url={userData.avatar_url}
-                username={userData.username}
-                />
-        </div>
+        <>
+            <>
+                <Header 
+                    verified={isVerified} 
+                    avatar_url={userData.avatar_url}
+                    username={userData.username} 
+            />
+            <MyProfile />   
+            </>
+        </>
     )
 }
 
-export default Home;
+export default MyProfilePage;

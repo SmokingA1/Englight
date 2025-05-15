@@ -30,7 +30,7 @@ async def login(db: SessionDep, response: Response, form_data: Annotated[OAuth2P
         key="access_token",
         value=access_token,
         secure=False,
-        httponly=False,
+        httponly=True,
         samesite="Lax"
     )
 

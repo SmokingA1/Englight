@@ -4,11 +4,7 @@ import Button from "./Button";
 import styles from "../styles/LRForm.module.css"
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
-
-// type userData = {
-//     username: string
-//     password: string
-// }
+import { logger } from "./utils/logger";
 
 const LoginForm: React.FC = () => {
     const [email, setEmail] = useState("");
@@ -23,15 +19,16 @@ const LoginForm: React.FC = () => {
                 'Content-Type': 'application/x-www-form-urlencoded'
                 }
             });
-            console.log(response);
+            logger.info(response)
             if (response) {
-                navigate("/")
+                navigate("/");
             }
         } catch (error: any) {
             if (error.response) {
-                console.error("Server error: ", error.response)
+                console.error("Server error: ", error.response);
+            } else {
+                console.error('Some type of error ocured during loginning: ', error);
             }
-            console.error('Some type of error ocured during loginning: ', error);
         }
     }
 
@@ -72,11 +69,8 @@ const LoginForm: React.FC = () => {
                     <Link to="/signup" className={styles.link}>Register</Link>
                     <Link to="/" className={styles.link}>Forgot Password?</Link>
                 </div>
-                
             </form>
         </>
-
-        
     )
 }
 
