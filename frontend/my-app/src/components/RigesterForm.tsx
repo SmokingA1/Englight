@@ -5,7 +5,7 @@ import styles from "../styles/LRForm.module.css"
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
 
-type userProps = {
+interface userProps {
     username: string
     password: string
     email: string
@@ -39,7 +39,6 @@ const RegisterForm: React.FC = () => {
             console.error("Ошибка сети или другая ошибка:", error.message);
         }
         }
-
     }
 
     return(
@@ -102,8 +101,7 @@ const RegisterForm: React.FC = () => {
                 value={userData.phone_number}
                 onChange={(e) => setUserData({...userData, phone_number: e.target.value})}
                 autoComplete="tel"
-                placeholder="Enter phone number..."
-                
+                placeholder="Enter phone number..." 
             />
 
             <Button 
@@ -116,7 +114,6 @@ const RegisterForm: React.FC = () => {
                     Already have an account?
                     <Link to="/login" className={styles.link}>Sign in</Link>
             </div>
-
         </form>
     )
 }

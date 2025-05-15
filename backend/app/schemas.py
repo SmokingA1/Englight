@@ -11,7 +11,7 @@ class RoleEnum(str, Enum):
 
 class UserBase(BaseModel):
     username: str = Field(..., min_length=1, max_length=30)
-    avatar_url: str = Field("static/images/d-avatar.jpg", min_length=1)
+    avatar_url: str = Field("static/avatars/d-avatar.jpg", min_length=1)
     email: EmailStr = Field(..., min_length=1)
     phone_number: str | None = Field(None, min_length=10, max_length=15)
     role: str = Field(default=RoleEnum.user, max_length=5)

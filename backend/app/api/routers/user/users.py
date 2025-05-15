@@ -44,11 +44,12 @@ async def read_users(
     return db_users
 
 
-@router.get("/me/", response_model=UserPublic)
+@router.get("/me", response_model=UserPublic)
 def read_user_me(current_user: CurrentUser) -> Any:
     """
     Get current user.
     """
+    print("here beffore")
     return current_user
 
 
@@ -106,7 +107,8 @@ async def create_user(db: SessionDep, user_create: UserCreate) -> Any:
 
     if db_email:
         raise HTTPException(status_code=400, detail="Such email already exists!")
-    if db_phone:
+    if db_phone and db_phone.phone_number != None:
+        print(db_phone.phone_number)
         raise HTTPException(status_code=400, detail="Such phone number already exists!")
     
     new_user = await create_new_user(db, user_create)

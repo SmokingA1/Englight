@@ -12,6 +12,7 @@ from app.schemas import TokenPayload
 from app.core.config import settings
 
 async def get_current_user(db: SessionDep, request: Request) -> User:
+    print("here")
     token = request.cookies.get("access_token")
 
     print(token)
