@@ -6,11 +6,12 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from jose import JWTError, jwt
 from pydantic import ValidationError
 
+from app.core.database import SessionDep
 from app.models import User
-from app.schemas import Token
+from app.schemas import TokenPayload
 from app.core.config import settings
 
-async def get_current_user(db: AsyncSession, request: Request) -> Any:
+async def get_current_user(db: SessionDep, request: Request) -> User:
     token = request.cookies.get("access_token")
 
     print(token)
@@ -20,7 +21,7 @@ async def get_current_user(db: AsyncSession, request: Request) -> Any:
 
     try: 
         token_payload = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM] )
-        token_data = Token(**token_payload)
+        token_data = TokenPayload(**token_payload)
 
         if token_data.exp < datetime.utcnow().timestamp():
             raise HTTPException(
@@ -40,4 +41,4 @@ async def get_current_user(db: AsyncSession, request: Request) -> Any:
     
     return db_user
 
-CurrestUser = Annotated[User, Depends(get_current_user())]
+CurrentUser = Annotated[User, Depends(get_current_user)]

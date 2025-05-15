@@ -19,15 +19,15 @@ class User(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     avatar_url: Mapped[str | None] = mapped_column(String(255), default=None, nullable=True)
-    username: Mapped[str] = mapped_column(String(50), nullable=True)
+    username: Mapped[str] = mapped_column(String(50), nullable=False)
     email: Mapped[str] = mapped_column(String(255), nullable=False, unique=True, index=True)
     hashed_password: Mapped[str] = mapped_column(String(255))
     phone_number: Mapped[str | None] = mapped_column(String(15), default=None, nullable=True, unique=True, index=True)
-    role: Mapped[Role] = mapped_column(Enum(Role, name="role_enum", native_enum=False))
+    role: Mapped[Role] = mapped_column(Enum(Role, name="role_enum", native_enum=False), default=Role.user, nullable=False)
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    decks: Mapped[List["Deck"]] = relationship("Deck", back_populates="user")
+    decks: Mapped[List["Deck"]] = relationship("Deck", back_populates="owner")
 
 
 class Deck(Base):
@@ -55,4 +55,4 @@ class Word(Base):
     rank: Mapped[Rank] = mapped_column(Enum(Rank, name="rank_enum", native_enum=False))
     count: Mapped[int] = mapped_column(Integer)
 
-    deck: Mapped["Deck"] = relationship("Deck", back_populates=True)
+    deck: Mapped["Deck"] = relationship("Deck", back_populates="words")
