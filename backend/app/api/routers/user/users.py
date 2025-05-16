@@ -122,20 +122,41 @@ async def create_user(db: SessionDep, user_create: UserCreate) -> Any:
 @router.post("/upload-avatar", response_model=UserPublic)
 async def upload_user_avatar(
     db: SessionDep,
-    user_id: int = Form(...),
+    user_id: str = Form(...),
     file: UploadFile = File(...)
-):
+):    
     # Генерируем уникальное имя файла
     file_ext = file.filename.split('.')[-1]
-    unique_filename = f"{uuid4()}.{file_ext}"
-    file_path = os.path.join(settings.AVATAR_UPLOAD_DIR, unique_filename)
+    unique_filename = f"{uuid4()}.{file_ext}"   
+
+    #path to current directory
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # например app/api/routers/user
+
+    APP_DIR = os.path.abspath(os.path.join(BASE_DIR, '..', '..', '..'))  # прыжок вверх до app/
+
+    #Строим путь для сохранения файла 
+    #APP_DIR = path/to/backend/app/
+    #settings.AVATAR_UPLOAD_DIR = static/avatars
+    #avatar_dir = path/to/backend/app/static/avatar
+    avatar_dir = os.path.join(APP_DIR, settings.AVATAR_UPLOAD_DIR)
+
+    # Путь до файла на диске
+    #path/to/backend/app/static/avatar/unique_filename
+    file_path = os.path.join(avatar_dir, unique_filename)
+
+    # print("UPLOAD DIR:", settings.AVATAR_UPLOAD_DIR)
+    # print("FULL PATH:", file_path)
+    # print("Unique filename: ", unique_filename)
 
     # Сохраняем файл
-    os.makedirs(settings.AVATAR_UPLOAD_DIR, exist_ok=True)
+    os.makedirs(avatar_dir, exist_ok=True)#create dir if not exist
+
+    #Creating file path/to/backend/app/static/avatar/unique_filename
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
 
-    avatar_url = f"/{file_path}"
+    #url for assign to database user.avatar_url = static/avatars/{unique_filename}
+    avatar_url = f"{settings.AVATAR_UPLOAD_DIR}/{unique_filename}"
 
     # Обновляем пользователя
     user_data = UserCreateAvatar(id=user_id, avatar_url=avatar_url)

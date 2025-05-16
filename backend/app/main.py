@@ -7,6 +7,9 @@ from app.api import main
 app = FastAPI(title=settings.PROJECT_NAME)
 
 # Настроим FastAPI на обслуживание статичных файлов
+#Это говорит FastAPI:
+
+# "Слушай, всё, что приходит на URL, начинающийся с /static, нужно искать в папке app/static на диске."
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
 app.include_router(main.api_router)
 

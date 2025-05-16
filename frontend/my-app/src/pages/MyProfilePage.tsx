@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useCallback} from "react";
 import Header from "../components/Header";
 import MyProfile from "../components/MyProfile";
-import { logger } from "../components/utils/logger";
 import api from "../api";
 
 interface UserPorps {
@@ -27,7 +26,6 @@ const MyProfilePage: React.FC = () => {
                 avatar_url
             })
 
-            logger.info(response.data);
         } catch (error: any) {
             if (error.response) {
                 console.error("server error: ", error.response)
