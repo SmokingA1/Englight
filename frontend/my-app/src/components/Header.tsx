@@ -32,8 +32,8 @@ const Header: React.FC<HeaderProps> = ({verified, username, avatar_url}) => {
                             </>
                             ) : (
                                 <>
-                                    <Link to={"/login"} className="nav-3">Sign in</Link>
-                                    <Link to="/me" className="nav-4">
+                                    <Link to="/login" className="nav-3">Sign in</Link>
+                                    <Link to="/login" className="nav-4">
                                     <img className="iconUser" src={'http://localhost:8000/static/avatars/d-avatar.jpg'} alt="My logo"/>
                                     </Link>
                                 </>
