@@ -32,8 +32,9 @@ class User(Base):
 
 class Deck(Base):
     __tablename__ = "decks"
-
+    
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    name: Mapped[str] = mapped_column(String(40), nullable=False)
     owner_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete='CASCADE'))
 
     owner: Mapped["User"] = relationship("User", back_populates="decks")

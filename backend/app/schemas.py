@@ -59,12 +59,19 @@ class UserPublic(UserBase):
 
 
 class DeckBase(BaseModel):
-    words: List["WordRead"]
+    name: str = Field(..., min_length=1, max_length=40)
+    ownder_id: UUID
 
+class DeckCreate(DeckBase):
+    pass 
+
+
+class DeckUpdate(BaseModel):
+    name: str | None = Field(min_length=1, max_length=40)
 
 class DeckRead(DeckBase):
     id: UUID
-    owner_id: UUID
+    # words: List["WordRead"]
 
     model_config = {'from_attributes': True}
 
