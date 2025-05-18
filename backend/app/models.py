@@ -52,7 +52,8 @@ class Word(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     deck_id: Mapped[int] = mapped_column(ForeignKey("decks.id", ondelete="CASCADE"))
-    name: Mapped[str] = mapped_column(String(50))
+    name: Mapped[str] = mapped_column(String(45))
+    description: Mapped[str] = mapped_column(String(150), nullable=False)
     rank: Mapped[Rank] = mapped_column(Enum(Rank, name="rank_enum", native_enum=False))
     count: Mapped[int] = mapped_column(Integer)
 

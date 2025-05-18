@@ -173,7 +173,7 @@ async def update_me(db: SessionDep, user_update: UserUpdate, current_user: Curre
     """
     Updating the current user by id
     """
-
+    
     updated_user = await update_existing_user(db, current_user.id, user_update)
 
     if not updated_user:

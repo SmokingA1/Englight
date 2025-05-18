@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
+import Message from "./Message";
 import styles from "../styles/LRForm.module.css"
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
 import { logger } from "./utils/logger";
 
+
 const LoginForm: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [message, setMessage] = useState("");
     const navigate = useNavigate();
+
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -24,6 +28,10 @@ const LoginForm: React.FC = () => {
                 navigate("/");
             }
         } catch (error: any) {
+            setMessage("Incorret email or password!")
+            setTimeout(() => {
+                setMessage("");
+            }, 5000);          
             if (error.response) {
                 console.error("Server error: ", error.response);
             } else {
@@ -31,7 +39,6 @@ const LoginForm: React.FC = () => {
             }
         }
     }
-
 
     return (
         <>
@@ -46,6 +53,7 @@ const LoginForm: React.FC = () => {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="Enter your email here"
+                    autoComplete="username"
                     required
                 />
 
@@ -69,6 +77,10 @@ const LoginForm: React.FC = () => {
                     <Link to="/signup" className={styles.link}>Register</Link>
                     <Link to="/" className={styles.link}>Forgot Password?</Link>
                 </div>
+
+                {message &&
+                    <Message text={message} type="error" />
+                }
             </form>
         </>
     )

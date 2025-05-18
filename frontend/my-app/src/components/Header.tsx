@@ -19,9 +19,9 @@ const Header: React.FC<HeaderProps> = ({verified, username, avatar_url}) => {
                     <Link to="/" className="nav-0">
                         <img className="icon-app" src={icon} alt="Logo" />
                     </Link>
-                    <Link to={"/"} className="nav-1">Exercices</Link>
-                    <Link to="/" className="nav-2">Vocabulary</Link>
-                    <Link to={"/me"} className="nav-3">My account</Link>
+                    <Link to={"/"} className="nav-1">Home</Link>
+                    <Link to={"/"} className="nav-2">Exercices</Link>
+                    <Link to="/" className="nav-3">Vocabulary</Link>
                     {verified === undefined ? <span>Loading...</span> : (
                         verified ? (
                             <>

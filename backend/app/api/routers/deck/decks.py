@@ -16,7 +16,7 @@ from app.services.deck import (
     delete_deck_by_id
 )
 
-router = APIRouter(prefix="decks", tags=["Deck"])
+router = APIRouter(prefix="/decks", tags=["Deck"])
 
 @router.get("/my", response_model=DeckRead)
 async def read_deck_my(db: SessionDep, current_user: CurrentUser) -> Any:
@@ -31,7 +31,7 @@ async def read_deck_my(db: SessionDep, current_user: CurrentUser) -> Any:
     return db_deck
 
 
-@router.get("my-all", response_model=List[DeckRead])
+@router.get("/my-all", response_model=List[DeckRead])
 async def read_decks_my(db: SessionDep, current_user: CurrentUser) -> Any:
     """
         Get all decks by user id
@@ -75,9 +75,9 @@ async def read_deck_by_id(db: SessionDep, deck_id: UUID) -> Any:
 
 
 @router.post("/create/", response_model=DeckRead)
-async def create_new_deck(db:SessionDep, deck_create: DeckCreate) -> Any:
+async def create_new_deck(db: SessionDep, deck_create: DeckCreate) -> Any:
     """
-        Create new deck
+        Create new deck 
     """
     new_deck = await create_deck(db, deck_create)
 

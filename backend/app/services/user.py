@@ -63,6 +63,7 @@ async def update_avatar_user(db: AsyncSession, user_create_avatar: UserCreateAva
 
 async def update_existing_user(db: AsyncSession, user_id: UUID, user_update: UserUpdate) -> User | None:
     db_user = await get_user_by_id(db, user_id)
+    
     if not db_user: 
         return None
     
