@@ -44,7 +44,7 @@ async def get_decks_by_user_id(
 async def create_deck(db: AsyncSession, deck_create: DeckCreate) -> Deck | None:
     new_deck = Deck(
         name = deck_create.name,
-        owner_id = deck_create.ownder_id
+        owner_id = deck_create.owner_id
     )
 
     db.add(new_deck)
