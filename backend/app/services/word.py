@@ -53,12 +53,12 @@ async def create_word(
     return new_word
 
 
-async def update_word(
+async def update_word_by_id(
     db: AsyncSession,
     word_id: UUID,
     word_update: WordUpdate,
 ) -> Word | None:
-    db_word = await get_word_by_id(word_id)
+    db_word = await get_word_by_id(db, word_id)
 
     if not db_word:
         return None
@@ -73,7 +73,7 @@ async def update_word(
     return db_word
 
 
-async def delete_word(
+async def delete_word_by_id(
     db: AsyncSession,
     word_id: UUID,
 ) -> Word | None:

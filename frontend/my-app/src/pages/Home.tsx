@@ -1,6 +1,8 @@
 import React, {useState, useCallback, useEffect} from "react"
 import Header from "../components/Header";
+import MainContent from "../components/MainContent";
 import api from "../api";
+import styles from "../styles/Base.module.css"
 import { logger } from "../components/utils/logger";
 
 interface UserPorps {
@@ -41,13 +43,19 @@ const Home: React.FC = () => {
 
     return(
 
-        <div className="home-page" style={{display: "flex", justifyContent: "center"}}>
+        <main className={styles.main}>
+                
             <Header 
                 verified={isVerified}
                 avatar_url={userData.avatar_url}
                 username={userData.username}
-                />
-        </div>
+            />
+            
+            <MainContent
+
+            />
+            
+        </main>
     )
 }
 

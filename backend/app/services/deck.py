@@ -17,12 +17,6 @@ async def get_deck_by_id(db: AsyncSession, deck_id: UUID) -> Deck | None:
     return db_deck
 
 
-async def get_deck_by_user_id(db: AsyncSession, owner_id: UUID) -> Deck | None:
-    query = await db.execute(select(Deck).where(Deck.owner_id == owner_id))
-    db_deck = query.scalars().first()
-    return db_deck
-
-
 async def get_decks(
     db: AsyncSession,
     offset: int,
@@ -76,3 +70,11 @@ async def delete_deck_by_id(db: AsyncSession, deck_id: UUID) -> Deck | None:
     await db.commit()
 
     return db_deck
+
+
+
+# XD
+# async def get_deck_by_user_id(db: AsyncSession, owner_id: UUID) -> Deck | None:
+#     query = await db.execute(select(Deck).where(Deck.owner_id == owner_id))
+#     db_deck = query.scalars().first()
+#     return db_deck

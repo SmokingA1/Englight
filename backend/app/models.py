@@ -27,7 +27,7 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    decks: Mapped[List["Deck"]] = relationship("Deck", back_populates="owner")
+    decks: Mapped[List["Deck"]] = relationship("Deck", back_populates="owner", passive_deletes=True)
 
 
 class Deck(Base):
@@ -35,10 +35,10 @@ class Deck(Base):
     
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(String(40), nullable=False)
-    owner_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete='CASCADE'))
+    owner_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
 
     owner: Mapped["User"] = relationship("User", back_populates="decks")
-    words: Mapped[List["Word"]] = relationship("Word", back_populates="deck")
+    words: Mapped[List["Word"]] = relationship("Word", back_populates="deck", passive_deletes=True)
 
 
 class Rank(enum.Enum):
@@ -51,7 +51,7 @@ class Word(Base):
     __tablename__ = "word"
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    deck_id: Mapped[int] = mapped_column(ForeignKey("decks.id", ondelete="CASCADE"))
+    deck_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("decks.id", ondelete="CASCADE"), nullable=False)
     name: Mapped[str] = mapped_column(String(45))
     description: Mapped[str] = mapped_column(String(150), nullable=False)
     rank: Mapped[Rank] = mapped_column(Enum(Rank, name="rank_enum", native_enum=False))

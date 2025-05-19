@@ -143,18 +143,134 @@
     background-color: rgba(0, 0, 0, 0.2)
 }
 
+/* Deck data */
 .decks {
     display: grid;
-    grid-template-columns: 48.75% 48.75%;
-    gap: 2.5%;
+    grid-template-columns: 155px 155px 155px 155px;
+    gap: 1%;
 }
 
 .deck {
-    height: 150px;
+    height: 250px;
     box-shadow: 0 0 4px rgba(68, 68, 68, 0.6);
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+}
+
+/* it's up to you */
+/* .deckName {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    border-top-right-radius: 8px;
+    border-top-left-radius: 8px;
+    transform: translate(-50%);
+    background-color: rgba(184, 184, 184, 0.7);
+
+    display: flex;
+    justify-content: center;
+} */
+
+.deckName {
+    position: absolute;
+    width: 100%;
+    left: 50%;
+    bottom: 0%;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    transform: translate(-50%);
+    background-color: rgba(184, 184, 184, 0.8);
+
+    display: flex;
+    justify-content: center;
+}
+
+
+.deckBackground {
     border-radius: 8px;
 }
 
+.newDeckForm {
+    height: 250px;
+    box-shadow: 0 0 4px rgba(68, 68, 68, 0.6);
+    border-radius: 8px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.2s linear;
+}
+
+.newDeckButton {
+    cursor: pointer;
+    font-size: 50px;
+    background: transparent;
+    border: none;
+    width: 100%;
+    height: 100%;
+}
+
+.newDeckForm:hover {
+    background-color: rgba(230, 230, 230, 0.3);
+    box-shadow: 0 0 4px rgba(19, 19, 19, 0.7);
+}
+
+.createDeckForm {
+    position: fixed;
+    z-index: 999;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 300px;
+    max-width: 90vw;
+    height: 400px;
+    
+    background-color: #fff;
+    /* background-color: rgb(110, 110, 110); */
+    box-shadow: 0 0 5px rgba(68, 68, 68, 0.3);
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 10px;
+}
+
+.createDeckInput {
+    width: 80%;
+    padding: 6px;
+    margin-top: 5px;
+    border-radius: 8px;
+    border: 1px solid rgba(68, 68, 68, 0.4) ;
+    box-shadow: 0 0 2px rgba(68, 68, 68, 0.4);
+    outline: none;
+}
+
+.createDeckInput:focus {
+    border: 1px solid rgba(82, 113, 255, 0.4) ;
+    box-shadow: 0 0 3px rgba(82, 113, 255, 0.5);
+}
+
+.createDeckButton {
+    width: 80%;
+    padding: 15px;
+    border-radius: 10px;
+    border: none;
+    background-color: #84d6f0;
+    margin-top: auto;
+    color: #fff;
+    transition: 0.15s ease-in;
+    cursor: pointer;
+}
+
+.createDeckButton:hover {
+    background-color: #65aee9;
+}
+
+/* User change name data */
 .nameInput {
     width: 105px;
     font-size: 20px;
@@ -170,3 +286,4 @@
     box-shadow: 0 0 2px rgba(82, 113, 255, 0.8);
     box-shadow: 0 0 2px rgba();
 }
+
