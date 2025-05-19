@@ -8,7 +8,6 @@ from app.core.database import SessionDep
 from app.schemas import DeckCreate, DeckRead, DeckUpdate, Message
 from app.services.deck import (
     get_deck_by_id,
-    get_deck_by_user_id,
     get_decks_by_user_id,
     get_decks,
     create_deck,
@@ -18,23 +17,10 @@ from app.services.deck import (
 
 router = APIRouter(prefix="/decks", tags=["Deck"])
 
-@router.get("/my", response_model=DeckRead)
-async def read_deck_my(db: SessionDep, current_user: CurrentUser) -> Any:
-    """
-        Get specific deck by user id 
-    """
-    db_deck = await get_deck_by_user_id(db, current_user.id)
-
-    if not db_deck:
-        raise HTTPException(status_code=404, detail="Deck not found!")
-    
-    return db_deck
-
-
 @router.get("/my-all", response_model=List[DeckRead])
 async def read_decks_my(db: SessionDep, current_user: CurrentUser) -> Any:
     """
-        Get all decks by user id
+        Get all decks by current user id
     """
     db_decks = await get_decks_by_user_id(db, current_user.id)
 
@@ -82,7 +68,7 @@ async def create_new_deck(db: SessionDep, deck_create: DeckCreate) -> Any:
     new_deck = await create_deck(db, deck_create)
 
     if not new_deck:
-        raise HTTPException(status_code=404, detail="Something went wrong, incorrect data!")
+        raise HTTPException(status_code=400, detail="Something went wrong, incorrect data!")
     
     return new_deck
 

@@ -1,19 +1,16 @@
 import React, { useState } from "react";
 import Input from "./Input";
 import Button from "./Button";
-import Message from "./Message";
 import styles from "../styles/LRForm.module.css"
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
 import { logger } from "./utils/logger";
 
-
 const LoginForm: React.FC = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [message, setMessage] = useState("");
+    const [logError, setLogError] = useState("");
     const navigate = useNavigate();
-
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -28,10 +25,7 @@ const LoginForm: React.FC = () => {
                 navigate("/");
             }
         } catch (error: any) {
-            setMessage("Incorret email or password!")
-            setTimeout(() => {
-                setMessage("");
-            }, 5000);          
+            setLogError("Incorrect email or password, try again!");
             if (error.response) {
                 console.error("Server error: ", error.response);
             } else {
@@ -68,7 +62,11 @@ const LoginForm: React.FC = () => {
                     autoComplete="current-password"
                     required
                 />
-
+                {
+                    logError && 
+                    <span className={styles.error}>{logError}</span>
+                }
+                
                 <Button
                 className={styles.button}
                 label="SIGN IN" type="submit"/>
@@ -77,10 +75,6 @@ const LoginForm: React.FC = () => {
                     <Link to="/signup" className={styles.link}>Register</Link>
                     <Link to="/" className={styles.link}>Forgot Password?</Link>
                 </div>
-
-                {message &&
-                    <Message text={message} type="error" />
-                }
             </form>
         </>
     )

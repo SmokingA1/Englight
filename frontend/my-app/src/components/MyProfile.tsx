@@ -3,6 +3,7 @@ import styles from "../styles/MyProfile.module.css"
 import api from "../api";
 import Button from "./Button";
 import Input from "./Input";
+import Deck from "./Deck";
 import { logger } from "./utils/logger";
 
 interface userDataInterface {
@@ -36,6 +37,10 @@ const MyProfile: React.FC = () => {
     const [newAvatar, setNewAvatar] = useState<File | null>(null);
     const [isFormAvatar, setIsFormAvatar] = useState<boolean>(false);
     const [isUpdateForm, setIsUpdateForm] = useState<boolean>(false);
+    
+    const [activeDeckId, setActiveDeckId] = useState<string | null>(null);
+    const [newDeckName, setNewDeckName] = useState<string>("");
+    const [isAddFormDeck, setIsAddFormDeck] = useState<boolean>(false);
     
     const fetchUserData = useCallback(async () => {
         try {
@@ -108,6 +113,26 @@ const MyProfile: React.FC = () => {
                 setIsFormAvatar(false);
                 fetchUserData();
             }
+        } catch (error: any) {
+            if (error.response) {
+                console.error("Server error: ", error.response);
+            } else {
+                console.error("Network or other error: ", error);
+            }
+        }
+    }
+
+    const handleCreateDeck = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        try {
+            const deckData = {
+                "name": newDeckName,
+                "owner_id": userData.id,
+            }
+            const response = await api.post("/decks/create/", deckData);
+            logger.info(response.data);
+
+            setIsAddFormDeck(false);
         } catch (error: any) {
             if (error.response) {
                 console.error("Server error: ", error.response);
@@ -212,14 +237,56 @@ const MyProfile: React.FC = () => {
                         <span>Email: {userData.email}</span>
                         <span>Phone: {userData.phone_number}</span>
                     </div>
+                    {/* decks */}
                     <div className={styles.decks}>
-                        {
+                        { decksData[0].name && (
                             decksData.map(deck => ( // кароче или {return div} or ()
-                                <div key={deck.id} className={styles.deck}> 
-                                    {deck.name}
+                                <div key={deck.id} className={styles.deck} onClick={() => setActiveDeckId(deck.id)}> 
+                                    <span className={styles.deckName}>{deck.name}</span>
+                                    <img className={styles.deckBackground} src="http://localhost:8000/static/deck_bg/d-deck-bg.jpg" alt="deck-bg" />                        
                                 </div>
                             ))
+                            )
                         }
+                        {/* Если нажал по колоде выводиться она колода и бг который скрывает */}
+                        { activeDeckId && 
+                                        <>
+                                            <div className={styles.darkBg} onClick={() => setActiveDeckId(null)}></div>
+                                            <Deck deck_id={activeDeckId}/>
+                                        </>
+                                    }
+
+                        <div className={styles.newDeckForm}>
+                            <Button 
+                                label="+"
+                                onClick={() => setIsAddFormDeck(!isAddFormDeck)}
+                                className={styles.newDeckButton}
+                            />
+                            
+                            { isAddFormDeck && 
+                            <>
+                                <div className={styles.darkBg} onClick={() => setIsAddFormDeck(false)}></div>
+                                <form className={styles.createDeckForm} onSubmit={(e) => handleCreateDeck(e)}>
+                                    <Input 
+                                        className={styles.createDeckInput}
+                                        label="Deck name"
+                                        id="deck-name"
+                                        value={newDeckName}
+                                        onChange={(e) => setNewDeckName(e.target.value)}
+                                    />
+
+                                    <Button 
+                                        className={styles.createDeckButton}
+                                        label="Submit"
+                                    />
+
+
+                                </form>
+                            </>
+                                
+
+                            }
+                        </div>
                     </div>
                 </div>
                 
