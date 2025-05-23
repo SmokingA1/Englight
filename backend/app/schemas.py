@@ -86,7 +86,8 @@ class RankEnum(str, Enum):
 class WordBase(BaseModel):
     deck_id: UUID
     name: str = Field(..., min_length=1, max_length=45)
-    description: str = Field(..., min_length=1, max_length=150)
+    translate: str = Field(..., min_length=1, max_length=64)
+    description: str = Field(..., min_length=1, max_length=350)
     rank:  RankEnum = Field(default=RankEnum.difficult, max_length=9)
     count: int = Field(0, ge=0)
     
@@ -104,7 +105,8 @@ class WordRead(WordBase):
 
 class WordUpdate(BaseModel):
     name: str | None = Field(None, min_length=1, max_length=45)
-    description: str | None = Field(None, min_length=10, max_length=150)
+    translate: str | None = Field(None, min_length=1, max_length=64)
+    description: str | None = Field(None, min_length=10, max_length=350)
     rank:  RankEnum | None = Field(None, max_length=9)
     count: int | None = Field(None, ge=0)
 

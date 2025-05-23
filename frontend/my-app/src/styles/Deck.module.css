@@ -1,7 +1,7 @@
 .deckBlock {
-    width: 500px;
-    height: 200px;
-    background-color: white;
+    width: 700px;
+    height: 400px;
+    background-color: transparent;
     color: black;
 
     position: fixed;
@@ -9,4 +9,76 @@
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 999;
+    
+    display: flex;
+}
+
+.deckMainInfo {
+    width: 35%;
+    /* border: 1px solid black; */
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: #ffffff;
+    box-shadow: 0 0 4px rgba(63,63,63,0.6);
+    border-radius: 10px;
+    margin-right: 20px;
+    padding: 10px;
+}
+
+.deckMainInfoCover {
+    border-radius: 8px;
+    margin-top: 5px;
+    box-shadow: 0 0 4px rgba(63, 63, 63, 0.8);
+}
+
+.deckMainInfoName {
+    margin-top: auto;
+}
+
+.words {
+    display: flex;
+    flex-direction: column;
+    
+    background-color: white;
+    box-shadow: 0 0 4px rgba(63,63,63,0.6);
+    border-radius: 10px;
+    padding: 4px;
+    width: 65%;
+
+}
+
+.input {
+    padding: 6px;
+    border-radius: 6px;
+    outline: none;
+    border: 1px solid rgba(63, 63, 63, 0.8);
+    width: 80%;
+    border: 1px solid rgba(68, 68, 68, 0.4) ;
+    box-shadow: 0 0 2px rgba(68, 68, 68, 0.4);
+}
+
+.input:focus {
+    border: 1px solid rgba(82, 113, 255, 0.4) ;
+    box-shadow: 0 0 3px rgba(82, 113, 255, 0.5);
+}
+
+.button {
+    width: 60%;
+    padding: 8px;
+    border-radius: 10px;
+    border: none;
+    box-shadow: 0 0 4px rgba(68, 68, 68, 0.5);
+    background-color: #f1f1f1;
+
+    margin: 10px 0px;
+    color: #000000;
+    transition: 0.15s ease-in;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: #cccccc;
 }

@@ -27,6 +27,16 @@ class User(Base):
     created_at: Mapped[datetime] = mapped_column(default=datetime.utcnow)
     updated_at: Mapped[datetime] = mapped_column(default=datetime.utcnow, onupdate=datetime.utcnow)
 
+    # level min 0  max 20 0-1(100exp) => regard(100monet) 1-2(prev * 2) after 10-11(prev * 1.5)
+    # description
+    # date_of_birth
+    # country 
+    # gender
+    # deck limit = 5 , premium + 10 deck
+    # premium ? true / false
+    # bill: 0monet - max(9999)monet
+    # background white/dark or custom
+    
     decks: Mapped[List["Deck"]] = relationship("Deck", back_populates="owner", passive_deletes=True)
 
 
@@ -36,7 +46,10 @@ class Deck(Base):
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     name: Mapped[str] = mapped_column(String(40), nullable=False)
     owner_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id", ondelete='CASCADE'), nullable=False)
-
+    
+    #deck cover
+    #limit 200-300 words if premium 500words
+ 
     owner: Mapped["User"] = relationship("User", back_populates="decks")
     words: Mapped[List["Word"]] = relationship("Word", back_populates="deck", passive_deletes=True)
 
@@ -52,9 +65,10 @@ class Word(Base):
 
     id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     deck_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("decks.id", ondelete="CASCADE"), nullable=False)
-    name: Mapped[str] = mapped_column(String(45))
-    description: Mapped[str] = mapped_column(String(150), nullable=False)
-    rank: Mapped[Rank] = mapped_column(Enum(Rank, name="rank_enum", native_enum=False))
-    count: Mapped[int] = mapped_column(Integer)
+    name: Mapped[str] = mapped_column(String(45), index=True, nullable=False)
+    translate: Mapped[str] = mapped_column(String(64), index=True, nullable=False)
+    description: Mapped[str] = mapped_column(String(350), nullable=False)
+    rank: Mapped[Rank] = mapped_column(Enum(Rank, name="rank_enum", native_enum=False), nullable=False, index=True)
+    count: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
 
     deck: Mapped["Deck"] = relationship("Deck", back_populates="words")

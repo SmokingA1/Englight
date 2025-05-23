@@ -1,21 +1,22 @@
-import React, {useState, useCallback, useEffect} from "react"
+import React, {useEffect, useState, useCallback} from "react";
 import Header from "../components/Header";
-import MainContent from "../components/MainContent";
 import Footer from "../components/Footer";
 import api from "../api";
-import { logger } from "../components/utils/logger";
-
+// import Fortune from "../components/Fortune";
+// import FortuneCanvas from "../components/FortuneCanvas";
+import FortuneCanvasModule from "../components/FortuneCanvaModule";
 interface UserProps {
     username: string
     avatar_url: string
 }
 
-const Home: React.FC = () => {
+const FortunePage: React.FC = () => {
     const [isVerified, setIsVerified] = useState<boolean>(false);
     const [userData, setUserData] = useState<UserProps>({
         username: '',
         avatar_url: ''
     })
+
 
     const fetchUserData = useCallback(async () => {
         try {
@@ -27,7 +28,6 @@ const Home: React.FC = () => {
                 avatar_url
             })
 
-            logger.info(response.data);
         } catch (error: any) {
             if (error.response) {
                 console.error("server error: ", error.response)
@@ -40,23 +40,14 @@ const Home: React.FC = () => {
         fetchUserData();
     }, [])
 
-
     return(
         <>
-                
-            <Header 
-                verified={isVerified}
-                avatar_url={userData.avatar_url}
-                username={userData.username}
-            />
-            
-            <MainContent
-
-            />
-
+            <Header verified={isVerified} username={userData.username} avatar_url={userData.avatar_url}/>
+            <FortuneCanvasModule verified={isVerified} />
             <Footer />
         </>
+        
     )
 }
 
-export default Home;
+export default FortunePage;
