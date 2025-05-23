@@ -1,0 +1,40 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-self: flex-end;
+    gap: 50px;
+    flex-shrink: 0;
+
+    background-color: rgb(75, 69, 73);
+    box-shadow: 0 0 4px rgba(63, 63, 63, 0.8);
+    width: 100%;
+    height: auto;
+    padding: 40px 0;
+
+}
+
+.footEl {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.link:visited {
+    color: #fff;
+}
+
+.link:hover {
+    color: rgba(72, 100, 255, 0.8);
+    transform: translateY(-1px);
+}
+
+.contact {
+    color: #fff;
+}

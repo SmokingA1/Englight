@@ -1,0 +1,156 @@
+.main {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+}
+
+.fortuneBlock {
+    width: 800px;
+    height: 800px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding: 50px;
+    
+}
+
+.fortuneWheel {
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    box-shadow: 0 0 4px rgba(40, 40, 40, 0.6);
+    position: relative;
+    animation: spinningWheel 2s linear infinite;
+
+}
+
+.wordSettings {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 15px;
+
+    border-radius: 8px;
+    box-shadow: 0 0 4px rgba(60, 60, 60, 0.8);
+}
+
+.name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.emptyMain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 50px;   
+}
+
+.link {
+    text-decoration: none;
+    color: rgb(202, 96, 170);
+    transition: 0.15s ease;
+    display: inline-block;
+}
+
+.link:visited {
+    color: rgb(202, 96, 170);
+}
+
+.link:hover {
+    color: rgb(170, 30, 128);
+    transform: translateY(-2px)
+}
+
+
+
+
+.fortuneSettings {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+    gap: 10px;
+}
+
+.spinButton, .settingsButton {
+    padding: 10px;
+    color: #fff;
+    
+    border: 1px solid rgba(131, 131, 131, 0.8);
+    background-color: rgb(151, 77, 133);
+    box-shadow: 0 0 4px rgba(40, 40, 40, 0.6);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.15s ease-in;
+}
+
+.spinButton {
+    width: 50%;
+}
+
+.settingsButton {
+    width: 50px;
+}
+
+.settingsButton:hover, .spinButton:hover {
+    background-color: rgb(100, 40, 85);
+}
+
+/* .arrow {
+    font-size: 40px;
+    position: absolute;
+    transform: translateY(-25px);
+     */
+/* } */
+
+
+/* 
+.slot {
+    font-size: 70px;
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    left: 200px;
+    transform-origin: 50% 250px ;
+}
+
+.slot2 {
+    rotate: 72deg;
+}
+.slot3 {
+    rotate: 144deg;
+}
+.slot4 {
+    rotate: 216deg;
+}
+.slot5 {
+    rotate: 288deg;
+}
+
+
+
+.spinButton {
+    padding: 10px;
+
+    width: 50%;
+    color: #fff;
+    border: 1px solid rgba(131, 131, 131, 0.8);
+    background-color: rgb(151, 77, 133);
+    box-shadow: 0 0 4px rgba(40, 40, 40, 0.6);
+    border-radius: 10px;
+}
+
+@keyframes spinningWheel {
+    0% {
+        transform: rotateZ(0deg);
+    }
+    100% {
+        transform: rotateZ(360deg)
+    }
+} */
