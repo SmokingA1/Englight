@@ -30,6 +30,7 @@ async def login(db: SessionDep, response: Response, form_data: Annotated[OAuth2P
         key="access_token",
         value=access_token,
         secure=False,
+        # max_age=expires_delta.total_seconds(),
         httponly=True,
         samesite="Lax"
     )

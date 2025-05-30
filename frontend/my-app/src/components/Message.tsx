@@ -16,14 +16,15 @@ const Message: React.FC<MessageProps> = ({text, type = 'info'}) => {
         <div
             style={{
                 color,
+                background: "white",
                 boxShadow: "0 0 3px rgba(63, 63, 63, 0.5)",                
                 padding: "10px 12px",
                 borderRadius: "5px",
-                marginTop: "10px",
+                margin: "10px 0 0 5px",
                 position: "fixed",
-                left: "50%",
+                zIndex: "999",
+                left: "0",
                 top: "0px",
-                transform: "translateX(-50%)",
             }}
         >
             {text}

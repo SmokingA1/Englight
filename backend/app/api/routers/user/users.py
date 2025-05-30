@@ -15,6 +15,7 @@ from app.services.user import (
     get_user_by_email,
     get_user_by_id,
     get_user_by_phone,
+    get_user_by_username,
     get_users,
     create_new_user,
     update_avatar_user,
@@ -23,6 +24,8 @@ from app.services.user import (
 )
 from app.api.deps import CurrentUser
 from app.core.database import SessionDep
+from app.utils import send_email, generate_new_account_email
+from app.core.config import settings
 
 router = APIRouter(prefix="/users", tags=["User"])
 
@@ -67,6 +70,19 @@ async def read_user_by_id(db: SessionDep, user_id: uuid.UUID) -> Any:
     return db_user
 
 
+@router.get("/username/{username}", response_model=List[UserPublic])
+async def read_users_by_username(db: SessionDep, username: str) -> Any:
+    """
+        Get a specific user by username.
+    """
+
+    db_users = await get_user_by_username(db, username)
+
+    if not db_users:
+        raise HTTPException(status_code=404, detail="Users not found!")
+
+    return db_users
+
 @router.get("/email/{user_email}", response_model=UserPublic)
 async def read_user_by_email(db: SessionDep, user_email: str) -> Any:
     """
@@ -107,7 +123,7 @@ async def create_user(db: SessionDep, user_create: UserCreate) -> Any:
 
     if db_email:
         raise HTTPException(status_code=400, detail="Such email already exists!")
-    if db_phone and db_phone.phone_number != None:
+    if db_phone and db_phone.phone_number != None: # если был найден пользователь с таким омером телефона и номер не равняется пустой строке то ошибку а если номер не дан и пустая строка то нормально ведь номер не обязятельно должен быть 
         print(db_phone.phone_number)
         raise HTTPException(status_code=400, detail="Such phone number already exists!")
     
@@ -116,6 +132,20 @@ async def create_user(db: SessionDep, user_create: UserCreate) -> Any:
     if not new_user:
         raise HTTPException(status_code=400, detail="Something went wrong!")
     
+
+    if settings.emails_enabled and user_create.email:
+        email_data = generate_new_account_email(
+            email_to=user_create.email,
+            username=user_create.username,
+            password=user_create.password
+        )
+        send_email(
+            email_to=user_create.email,
+            subject=email_data.subject,
+            html_content=email_data.html_content,
+        )
+
+
     return new_user
 
 #Очень страшные дела

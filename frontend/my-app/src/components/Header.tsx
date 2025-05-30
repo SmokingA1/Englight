@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logger } from "./utils/logger";
 import api from "../api";
 import icon from "../../icon_englight.png"
 import "../styles/header.css"
-
 
 interface HeaderProps {
     verified?: boolean
@@ -15,6 +14,9 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({verified, username, avatar_url}) => {
     const [moreInfo, setMoreInfo] = useState<boolean>(false);
     const navigate = useNavigate();
+    const dropdownRef = useRef<HTMLUListElement>(null);
+    const avatarRef = useRef<HTMLImageElement>(null);
+
 
     const signOut = async () => {
         try {
@@ -30,6 +32,24 @@ const Header: React.FC<HeaderProps> = ({verified, username, avatar_url}) => {
             }
         }
     }
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                dropdownRef.current && // если рендерится то true
+                !dropdownRef.current.contains(event.target as Node) && // если было нажато не по дочернему элементу этого узла => true 
+                avatarRef.current &&  // если рендерится то true
+                !avatarRef.current.contains(event.target as Node) // и также если наш клик находится за пределами аватарки и нажат узел который не явлется его дочерним элементном то мы получим => true
+            ) {
+                setMoreInfo(false);
+            }
+        }
+
+        document.addEventListener("click", handleClickOutside);
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+        };
+    }, [])
 
     return(
         <header>
@@ -51,30 +71,31 @@ const Header: React.FC<HeaderProps> = ({verified, username, avatar_url}) => {
                                     src={`http://localhost:8000/${avatar_url}`}
                                     alt="My logo"
                                     onClick={() => setMoreInfo(!moreInfo)}
+                                    ref={avatarRef}
                                     />
 
                                     {
                                         moreInfo && (
-                                            <div className="more-menu">
-                                                <button 
+                                            <ul className="more-menu" ref={dropdownRef}>
+                                                <li 
                                                     className="btn-more-info btn-1"
                                                     onClick={() => navigate("/me")} 
                                                 >
                                                     <i className="bi bi-person-fill"></i>Your profile
-                                                </button>
-                                                <button 
+                                                </li>
+                                                <li 
                                                     className="btn-more-info btn-2"
-                                                    onClick={() => navigate("#")} // /me/settings
+                                                    onClick={() => navigate("/settings")} // /me/settings
                                                 >
                                                     <i className="bi bi-gear"></i>Settings
-                                                </button>
-                                                <button 
+                                                </li>
+                                                <li 
                                                     className="btn-more-info btn-3"
                                                     onClick={() => signOut()}
                                                 >
                                                     <i className="bi bi-arrow-bar-right"></i>Sign out
-                                                </button>
-                                            </div>
+                                                </li>
+                                            </ul>
                                         )
                                     }
                                 </span>

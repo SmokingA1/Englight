@@ -7,16 +7,7 @@
     align-items: center;
     gap: 50px;
 
-    /* background: linear-gradient(
-        315deg,
-        #d05ed4,
-        #dddddd
-    ); */
-    
-    /* background-size: 400% 400%; */
-    /* animation: bg-anim 4s linear infinite alternate; */
-
-    background-color: rgb(255, 200, 241);
+    background-color: rgba(255, 255, 255, 0.651);
     padding: 200px 0px;
 }
 
@@ -64,3 +55,12 @@
 
 
 
+
+    /* background: linear-gradient(
+        315deg,
+        #d05ed4,
+        #dddddd
+    ); */
+    
+    /* background-size: 400% 400%; */
+    /* animation: bg-anim 4s linear infinite alternate; */

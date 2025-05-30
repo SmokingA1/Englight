@@ -1,0 +1,45 @@
+.wordContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+}
+
+.table td, .table th {
+    padding: 8px;
+    border: 1px solid black;
+    text-align: left;
+
+}
+
+.table thead {
+    background-color: rgb(99, 173, 127);
+    color: white;
+}
+
+.button {
+    padding: 12px 24px;
+    margin: 10px 0px;
+    color: #fff;
+
+    width: 250px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 0 4px rgba(43, 43, 43, 0.3);
+
+    background-color: rgb(119, 197, 150);
+
+    cursor: pointer;
+    transition: 0.15s ease-in;
+}
+
+.button:hover {
+    background-color: rgb(104, 173, 132);
+
+}

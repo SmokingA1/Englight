@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size: 20px;" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 50px 0;
+"
+>
+    <table style="
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 20px;
+        box-shadow: 0 0 5px rgba(60, 60, 60, 0.8); 
+        border-radius: 12px;
+        height: 500px;
+        width: 400px;
+        color: #000;
+    "
+    >
+        <thead>
+            <tr>
+                <th 
+                style="padding: 10px;
+                    border-radius: 5px;
+                    "
+                    
+                >
+                    {{project_name}} - new Account
+                </th>
+            </tr>
+        </thead>
+
+        <tbody style="
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 20px;
+            border-radius: 10px;
+        ">
+            <tr>
+                <td colspan="2">
+                    <p>Welcome to your new account!</p>
+                    <p>Here are your account details:</p>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Username:</strong></td>
+                <td>{{ username }}</td>
+            </tr>
+            <tr>
+                <td><strong>Password:</strong></td>
+                <td>{{ password }}</td>
+            </tr>
+            <tr>
+                <td>Visit site -> <a href={{link}}></a></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

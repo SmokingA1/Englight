@@ -1,7 +1,7 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
 
     width: 100%;
     max-width: 400px;
@@ -19,6 +19,7 @@
 }
 
 .input {
+    font-size: 14px;
     padding: 10px 0 10px 5px;
     border-radius: 8px;
     outline: none;
@@ -35,8 +36,8 @@
 }
 
 .button {
-    padding: 10px;
-    margin-top: 20px;
+    padding: 12px 24px;
+    margin: 15px 0px 5px 0px;
     color: #fff;
     background-color: #819eff;
     border: none;
@@ -49,43 +50,54 @@
     background-color: #8450fd;
 }
 
-.links {
+.options {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+    align-items: end;
 }
 
-.links a {
+.options a {
+    color: #21a8dd;
     text-decoration: none;
-    color: black;
 }
 
-.links a:visited {
-    color: black;
+.options a:hover {
+    color: #084055;
 }
 
-.links a:hover {
-    color: #7bdaff;
+.rememberContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 5px;
+
 }
 
-.rlinks {
+.linkRegister {
+    text-decoration: none;
+    align-self: center;
+    color: #21a8dd;
+}
+
+
+.linkRegister:hover {
+    color: #106f92;
+}
+
+/* register link */
+.rlink {
     display: flex;
     justify-content: center;
     margin-top: 20px;
     gap: 5px;
 }
 
-.rlinks a {
+.rlink a {
     text-decoration: none;
-    color: black;
+    color: #21a8dd;
 }
 
-.rlinks a:visited {
-    color: black;
-}
-
-.rlinks a:hover {
-    color: #7bdaff;
+.rlink a:hover {
+    color: #106f92;
 }
 
 @media (max-width: 400px) {

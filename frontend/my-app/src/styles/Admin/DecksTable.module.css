@@ -1,0 +1,108 @@
+.deckContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+    box-shadow: 0 0 2px rgba(60, 60, 60, 0.3);
+}
+
+.table td, .table th {
+    padding: 8px;
+    border: 1px solid black;
+    text-align: left;
+
+}
+
+.table thead {
+    background-color: rgb(99, 173, 127);
+    color: white;
+}
+
+.button {
+    padding: 12px 24px;
+    margin: 10px 0px;
+    color: #fff;
+
+    width: 250px;
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 0 4px rgba(43, 43, 43, 0.3);
+
+    background-color: rgb(119, 197, 150);
+
+    cursor: pointer;
+    transition: 0.15s ease-in;
+}
+
+.button:hover {
+    background-color: rgb(104, 173, 132);
+
+}
+
+.deepOptions{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+
+.input {
+    padding: 6px 0px;
+    width: 270px;
+    outline: none;
+
+    border: none;
+    border-radius: 6px;
+    box-shadow: 0 0 4px rgba(60, 60, 60, 0.9);
+
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    width: fit-content;
+    margin-bottom: 6px;
+}
+
+
+.searchButton {
+    padding: 5px 8px;
+
+    border: none;
+    background-color: rgb(119, 197, 150);
+    box-shadow: 0 0 4px rgba(43, 43, 43, 0.6);
+    border-radius: 4px;
+
+    color: #fff;
+    cursor: pointer;
+}
+
+.searchButton:hover {
+    background-color: rgb(104, 173, 132);
+}
+
+.findButton {
+    padding: 8px 8px;
+    margin: 8px 0;
+    width: 270px;
+
+
+    border: none;
+    background-color: rgb(119, 197, 150);
+    box-shadow: 0 0 4px rgba(43, 43, 43, 0.6);
+    border-radius: 8px;
+
+    color: #fff;
+    cursor: pointer;
+}
+
+.findButton:hover {
+    background-color: rgb(104, 173, 132);
+}

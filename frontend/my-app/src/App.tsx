@@ -5,6 +5,8 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import MyProfilePage from "./pages/MyProfilePage";
 import FortunePage from "./pages/FortunePage";
+import AdminPage from "./pages/AdminPage"
+import SettingsPage from "./pages/SettingsPage";
 
 const App: React.FC = () => {
   return (
@@ -16,6 +18,8 @@ const App: React.FC = () => {
           <Route path="/signup" element={<RegisterPage />} />
           <Route path="/me" element={<MyProfilePage />} />
           <Route path="/fortune" element={<FortunePage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
         </Routes>
       </Router>
     </>

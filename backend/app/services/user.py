@@ -26,6 +26,13 @@ async def get_user_by_phone(db: AsyncSession, user_phone: str) -> User | None:
     return db_user.scalars().first()
 
 
+async def get_user_by_username(db: AsyncSession, username: str) -> User | None:
+    query = select(User).where(User.username == username)
+    db_user = await db.execute(query)
+
+    return db_user.scalars().all()
+
+
 async def get_users(db: AsyncSession, offset: int, limit: int = 20) -> List[User] | None:
     query = select(User).offset(offset=offset).limit(limit=limit)
     db_users = await db.execute(query)

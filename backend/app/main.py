@@ -3,6 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from app.core.config import settings
 from app.api import main
+from app.core.database import SessionLocal
+
+from app.backend_preload import check_admin
 
 app = FastAPI(title=settings.PROJECT_NAME)
 
@@ -26,6 +29,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.on_event("startup")
+async def startup_event():
+    async with SessionLocal() as db:
+        await check_admin(db)
 
 @app.get("/", response_model=dict)
 async def home_page():

@@ -54,7 +54,7 @@ const RegisterForm: React.FC = () => {
             return;
         }
 
-        if (userData.phone_number.length < 10 || userData.phone_number.length > 13) {
+        if (userData.phone_number.length > 1 && userData.phone_number.length < 10 || userData.phone_number.length > 13) {
             setLogError({
                 type: "phone",
                 text: "The phone number cannot be smaller than 10 and more than 13 characters!",
@@ -88,7 +88,7 @@ const RegisterForm: React.FC = () => {
 
     return(
         <form className={styles.form} onSubmit={handleRegister}>
-            <h2 className={styles.h2Form}>Registration</h2>
+            <h2 className={styles.h2Form}>SIGN UP</h2>
 
             <Input 
                 className={styles.input}
@@ -167,7 +167,7 @@ const RegisterForm: React.FC = () => {
                 type="submit"
             />
 
-            <div className={styles.rlinks}>
+            <div className={styles.rlink}>
                     Already have an account?
                     <Link to="/login" className={styles.link}>Sign in</Link>
             </div>
